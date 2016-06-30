@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 
 import ast
 import os
@@ -51,6 +51,7 @@ def generateUnitTest(root, fileName):
 		nodeType = type(node)
 		if nodeType is ast.ClassDef:
 			classes.append(node.name)
+			#TODO: track methods
 		elif nodeType is ast.FunctionDef:
 			functions.append(node.name)
 
@@ -80,6 +81,8 @@ def generateUnitTest(root, fileName):
 				c, classTestComment,
 				'#TODO\n'
 			))
+			#TODO: generate instance construction stub
+			#TODO: generate method test stubs
 		classTestsStr = '\n'.join(classTests)
 	else:
 		classTestsStr = ''
@@ -92,6 +95,7 @@ def generateUnitTest(root, fileName):
 	return unitTest
 
 def main():
+	#TODO: argparse
 	modulePath = sys.argv[1]
 	testModulePath = sys.argv[2]
 
