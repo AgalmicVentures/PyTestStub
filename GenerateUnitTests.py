@@ -6,7 +6,7 @@ import sys
 
 functionTest = '''
 	def test_%s(self):
-		pass #TODO
+		raise NotImplementedError() #TODO
 '''
 
 classTest = '''class %sTest(unittest.TestCase):
@@ -79,7 +79,7 @@ def generateUnitTest(root, fileName):
 			functionTests = '' #'\n'.join(functTest % function for function in functions)
 			classTests.append(classTest % (
 				c, classTestComment,
-				'#TODO\n'
+				'raise NotImplementedError() #TODO\n'
 			))
 			#TODO: generate instance construction stub
 			#TODO: generate method test stubs
