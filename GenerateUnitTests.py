@@ -7,8 +7,7 @@ import sys
 
 functionTest = '''
 	def test_%s(self):
-		raise NotImplementedError() #TODO
-'''
+		raise NotImplementedError() #TODO'''
 
 classTest = '''class %sTest(unittest.TestCase):
 	"""
@@ -18,7 +17,7 @@ classTest = '''class %sTest(unittest.TestCase):
 
 unitTestBase = '''
 import unittest
-%s
+
 %s
 '''
 
@@ -68,37 +67,30 @@ def generateUnitTest(root, fileName):
 		return None
 
 	#Generate a functions test?
+	unitsTests = []
 	if len(functions) > 0:
 		moduleTestComment = 'Tests for functions in the %s module.' % module
-		functionTests = '\n'.join(functionTest % function for function in functions)
+		functionTests = '\n\n'.join(functionTest % function for function in functions)
 
-		functionsTestStr = classTest % (
+		unitsTests.append(classTest % (
 			module, module,
 			functionTests
-		)
-	else:
-		functionsTestStr = ''
+		))
 
 	#Generate class tests?
 	if len(classes) > 0:
-		classTests = []
 		for c in classes:
 			classTestComment = 'Tests for methods in the %s class.' % c
 			functionTests = '' #'\n'.join(functTest % function for function in functions)
-			classTests.append(classTest % (
+			unitsTests.append(classTest % (
 				c, classTestComment,
-				'#TODO\n'
+				'#TODO'
 			))
 			#TODO: generate instance construction stub
 			#TODO: generate method test stubs
-		classTestsStr = '\n'.join(classTests)
-	else:
-		classTestsStr = ''
 
-	unitTest = unitTestBase % (
-		functionsTestStr,
-		classTestsStr,
-	)
+	unitTestsStr = '\n\n'.join(unitsTests)
+	unitTest = unitTestBase % unitTestsStr
 
 	return unitTest
 
