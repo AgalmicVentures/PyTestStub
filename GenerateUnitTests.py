@@ -23,27 +23,34 @@ import unittest
 '''
 
 def generateUnitTest(root, fileName):
+	if not fileName.endswith('.py'):
+		return None
+
 	path = os.path.join(root, fileName)
 
 	#Skip symlinks
 	if os.path.islink(path):
 		print('Symlink: %s' % path)
-		return
+		return None
 
 	pathParts = os.path.split(path)
 	fileName = pathParts[-1]
 	module, ext = os.path.splitext(fileName)
 
 	#Load the file
-	with open(path) as f:
-		text = f.read()
+	try:
+		with open(path) as f:
+			text = f.read()
+	except UnicodeDecodeError as e:
+		print('Unicode decode error for %s: %s' % (path, e))
+		return None
 
 	#Parse it
 	try:
 		tree = ast.parse(text)
 	except:
 		print('Failed to parse %s' % path)
-		return
+		return None
 
 	#Walk the AST
 	classes = []
@@ -58,7 +65,7 @@ def generateUnitTest(root, fileName):
 
 	if len(functions) == 0 and len(classes) == 0:
 		print('No classes or functions in %s' % path)
-		return
+		return None
 
 	#Generate a functions test?
 	if len(functions) > 0:
