@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import ast
 import os
 import sys
@@ -79,7 +80,7 @@ def generateUnitTest(root, fileName):
 			functionTests = '' #'\n'.join(functTest % function for function in functions)
 			classTests.append(classTest % (
 				c, classTestComment,
-				'raise NotImplementedError() #TODO\n'
+				'#TODO\n'
 			))
 			#TODO: generate instance construction stub
 			#TODO: generate method test stubs
@@ -95,11 +96,16 @@ def generateUnitTest(root, fileName):
 	return unitTest
 
 def main():
-	#TODO: argparse
-	modulePath = sys.argv[1]
-	testModulePath = sys.argv[2]
+	#Parse arguments
+	parser = argparse.ArgumentParser(description='The Code Monkey.')
 
-	for root, directoryNames, fileNames in os.walk(modulePath):
+	parser.add_argument('module', help='The path of the module to test.')
+	parser.add_argument('test_module', help='The path of the test module to generate.')
+	parser.add_argument('-p', '--test-prefix', default='test_', help='The prefix for test files.')
+
+	arguments = parser.parse_args(sys.argv[1:])
+
+	for root, directoryNames, fileNames in os.walk(arguments.module):
 		for fileName in fileNames:
 			#Skip ignored files
 			unitTest = generateUnitTest(root, fileName)
@@ -107,8 +113,8 @@ def main():
 				continue
 
 			#Write it
-			outFile = 'test_%s' % fileName
-			outFolder = os.path.join(testModulePath, root)
+			outFile = '%s%s' % (arguments.test_prefix, fileName)
+			outFolder = os.path.join(arguments.test_module, root)
 			if not os.path.exists(outFolder):
 				os.makedirs(outFolder)
 
