@@ -2,18 +2,19 @@
 
 import argparse
 import ast
+import collections
 import os
 import sys
 
 functionTest = '''
 	def test_%s(self):
-		raise NotImplementedError() #TODO'''
+		raise NotImplementedError() #TODO: test %s'''
 
 classTest = '''class %sTest(unittest.TestCase):
 	"""
 	%s
 	"""
-	%s'''
+%s'''
 
 unitTestBase = '''
 import unittest
@@ -53,12 +54,18 @@ def generateUnitTest(root, fileName):
 
 	#Walk the AST
 	classes = []
+	classToMethods = collections.defaultdict(list)
 	functions = []
 	for node in tree.body:
 		nodeType = type(node)
 		if nodeType is ast.ClassDef:
 			classes.append(node.name)
-			#TODO: track methods
+
+			#Track methods
+			for child in node.body:
+				if type(child) is ast.FunctionDef:
+					classToMethods[node.name].append(child.name)
+
 		elif nodeType is ast.FunctionDef:
 			functions.append(node.name)
 
@@ -70,7 +77,7 @@ def generateUnitTest(root, fileName):
 	unitsTests = []
 	if len(functions) > 0:
 		moduleTestComment = 'Tests for functions in the %s module.' % module
-		functionTests = '\n\n'.join(functionTest % function for function in functions)
+		functionTests = '\n'.join(functionTest % (function, function) for function in functions)
 
 		unitsTests.append(classTest % (
 			module, module,
@@ -84,7 +91,7 @@ def generateUnitTest(root, fileName):
 			functionTests = '' #'\n'.join(functTest % function for function in functions)
 			unitsTests.append(classTest % (
 				c, classTestComment,
-				'#TODO'
+				'\n'.join(functionTest % (method, method) for method in classToMethods[c] if method[0] != '_'),
 			))
 			#TODO: generate instance construction stub
 			#TODO: generate method test stubs
