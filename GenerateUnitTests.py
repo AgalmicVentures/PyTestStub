@@ -14,6 +14,20 @@ classTest = '''class %sTest(unittest.TestCase):
 	"""
 	%s
 	"""
+
+	@staticmethod
+	def setUpClass(cls):
+		pass #TODO
+
+	@staticmethod
+	def tearDownClass(cls):
+		pass #TODO
+
+	def setUp(self):
+		pass #TODO
+
+	def tearDown(self):
+		pass #TODO
 %s'''
 
 unitTestBase = '''
@@ -88,13 +102,12 @@ def generateUnitTest(root, fileName):
 	if len(classes) > 0:
 		for c in classes:
 			classTestComment = 'Tests for methods in the %s class.' % c
-			functionTests = '' #'\n'.join(functTest % function for function in functions)
+			methodTests = '\n'.join(functionTest % (method, method) for method in classToMethods[c] if method[0] != '_')
 			unitsTests.append(classTest % (
 				c, classTestComment,
-				'\n'.join(functionTest % (method, method) for method in classToMethods[c] if method[0] != '_'),
+				methodTests,
 			))
 			#TODO: generate instance construction stub
-			#TODO: generate method test stubs
 
 	unitTestsStr = '\n\n'.join(unitsTests)
 	unitTest = unitTestBase % unitTestsStr
