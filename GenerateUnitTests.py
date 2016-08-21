@@ -133,7 +133,7 @@ def main():
 
 			#Write it
 			outFile = '%s%s' % (arguments.test_prefix, fileName)
-			outFolder = os.path.join(arguments.test_module, root)
+			outFolder = arguments.test_module
 			if not os.path.exists(outFolder):
 				os.makedirs(outFolder)
 
