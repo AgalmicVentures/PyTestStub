@@ -25,7 +25,7 @@ def generateUnitTest(root, fileName):
 
 	pathParts = os.path.split(path)
 	fileName = pathParts[-1]
-	module, ext = os.path.splitext(fileName)
+	module, _ = os.path.splitext(fileName)
 
 	#Load the file
 	try:
@@ -38,8 +38,9 @@ def generateUnitTest(root, fileName):
 	#Parse it
 	try:
 		tree = ast.parse(text)
-	except:
+	except Exception as e: #@suppress warnings since this really does need to catch all
 		print('Failed to parse %s' % path)
+		print(e)
 		return None
 
 	#Walk the AST
@@ -70,7 +71,7 @@ def generateUnitTest(root, fileName):
 		functionTests = '\n'.join(Templates.functionTest % (function, function) for function in functions)
 
 		unitsTests.append(Templates.classTest % (
-			module, module,
+			module, moduleTestComment,
 			functionTests
 		))
 
