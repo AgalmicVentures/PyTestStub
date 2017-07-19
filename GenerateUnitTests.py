@@ -114,16 +114,27 @@ def generateUnitTest(root, fileName):
 
 	return unitTest
 
-def main():
+def main(argv=None):
+	"""
+	The main function of the unit test generator tool.
+
+	:param argv: optional arguments (defaults to sys.argv if not specified)
+	:return: int
+	"""
 	#Parse arguments
-	parser = argparse.ArgumentParser(description='The Code Monkey.')
+	parser = argparse.ArgumentParser(description='Python Unit Test Stub Generator')
 
 	parser.add_argument('module', help='The path of the module to test.')
-	parser.add_argument('test_module', help='The path of the test module to generate.')
-	parser.add_argument('-p', '--test-prefix', default='test_', help='The prefix for test files.')
+	parser.add_argument('-m', '--test-module', default='test',
+		help='The path of the test module to generate.')
+	parser.add_argument('-p', '--test-prefix', default='test_',
+		help='The prefix for test files.')
 
-	arguments = parser.parse_args(sys.argv[1:])
+	if argv is None:
+		argv = sys.argv
+	arguments = parser.parse_args(argv[1:])
 
+	#Walk the directory finding Python files
 	for root, directoryNames, fileNames in os.walk(arguments.module):
 		for fileName in fileNames:
 			#Skip ignored files

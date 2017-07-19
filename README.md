@@ -8,20 +8,21 @@ and function.
 Generates the actual unit tests:
 
 	> ~/path/to/PyTestStub/GenerateUnitTests.py -h
-	usage: GenerateUnitTests.py [-h] [-p TEST_PREFIX] module test_module
+	usage: GenerateUnitTests.py [-h] [-m TEST_MODULE] [-p TEST_PREFIX] module
 
-	The Code Monkey.
+	Python Unit Test Stub Generator
 
 	positional arguments:
 	  module                The path of the module to test.
-	  test_module           The path of the test module to generate.
 
 	optional arguments:
 	  -h, --help            show this help message and exit
+	  -m TEST_MODULE, --test-module TEST_MODULE
+	                        The path of the test module to generate.
 	  -p TEST_PREFIX, --test-prefix TEST_PREFIX
 	                        The prefix for test files.
 
-	> ~/path/to/PyTestStub/GenerateUnitTests.py NanoPcap Test2
+	> ~/path/to/PyTestStub/GenerateUnitTests.py -m Test2 NanoPcap
 	No classes or functions in NanoPcap/__init__.py
 	Writing test to Test2/NanoPcap/test_Format.py
 	Writing test to Test2/NanoPcap/test_Listener.py
