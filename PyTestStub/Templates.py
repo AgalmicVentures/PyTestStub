@@ -8,11 +8,11 @@ classTest = '''class %sTest(unittest.TestCase):
 	%s
 	"""
 
-	@staticmethod
+	@classmethod
 	def setUpClass(cls):
 		pass #TODO
 
-	@staticmethod
+	@classmethod
 	def tearDownClass(cls):
 		pass #TODO
 
