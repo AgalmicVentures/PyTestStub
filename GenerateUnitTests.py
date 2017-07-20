@@ -22,6 +22,9 @@ def main(argv=None):
 		help='File to use as a footer.')
 	parser.add_argument('-H', '--header',
 		help='File to use as a header.')
+
+	parser.add_argument('-f', '--force', action='store_true',
+		help='Force files to be generated, even if they already exist.')
 	parser.add_argument('-m', '--test-module', default='test',
 		help='The path of the test module to generate.')
 	parser.add_argument('-p', '--test-prefix', default='test_',
@@ -71,10 +74,12 @@ def main(argv=None):
 					testInitFile.write('')
 
 			outPath = os.path.join(outFolder, outFile)
-			print('Writing test to %s' % outPath)
-			if not os.path.exists(outPath):
+			if not os.path.exists(outPath) or arguments.force:
+				print('[%s] Writing...' % outPath)
 				with open(outPath, 'w') as outFile:
 					outFile.write(unitTest)
+			else:
+				print('[%s] Already exists' % outPath)
 
 	return 0
 
