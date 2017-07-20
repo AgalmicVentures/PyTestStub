@@ -18,6 +18,10 @@ def main(argv=None):
 
 	parser.add_argument('module', help='The path of the module to test.')
 
+	parser.add_argument('-F', '--footer',
+		help='File to use as a footer.')
+	parser.add_argument('-H', '--header',
+		help='File to use as a header.')
 	parser.add_argument('-m', '--test-module', default='test',
 		help='The path of the test module to generate.')
 	parser.add_argument('-p', '--test-prefix', default='test_',
@@ -28,6 +32,16 @@ def main(argv=None):
 	if argv is None:
 		argv = sys.argv
 	arguments = parser.parse_args(argv[1:])
+
+	#Open the header and footer
+	header = ''
+	footer = ''
+	if arguments.header is not None:
+		with open(arguments.header) as headerFile:
+			header = headerFile.read()
+	if arguments.footer is not None:
+		with open(arguments.footer) as footerFile:
+			footer = footerFile.read()
 
 	#Walk the directory finding Python files
 	for root, directoryNames, fileNames in os.walk(arguments.module):
@@ -41,12 +55,16 @@ def main(argv=None):
 			if arguments.tab_width is not None:
 				unitTest = unitTest.replace('\t', ' ' * arguments.tab_width)
 
+			#Add header and footer
+			unitTest = header + unitTest + footer
+
 			#Write it
 			outFile = '%s%s' % (arguments.test_prefix, fileName)
 			outFolder = arguments.test_module
 			if not os.path.exists(outFolder):
 				os.makedirs(outFolder)
 
+			#TODO: do this at every level
 			testInit = os.path.join(outFolder, '__init__.py')
 			if not os.path.exists(testInit):
 				with open(testInit, 'w') as testInitFile:
