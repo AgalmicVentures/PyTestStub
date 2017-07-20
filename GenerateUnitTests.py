@@ -17,12 +17,13 @@ def main(argv=None):
 	parser = argparse.ArgumentParser(description='Python Unit Test Stub Generator')
 
 	parser.add_argument('module', help='The path of the module to test.')
+
 	parser.add_argument('-m', '--test-module', default='test',
 		help='The path of the test module to generate.')
 	parser.add_argument('-p', '--test-prefix', default='test_',
 		help='The prefix for test files.')
 	parser.add_argument('-t', '--tab-width', type=int,
-		help='The width of a tab in spaces (default None = actual tabs).')
+		help='The width of a tab in spaces (default actual tabs).')
 
 	if argv is None:
 		argv = sys.argv
