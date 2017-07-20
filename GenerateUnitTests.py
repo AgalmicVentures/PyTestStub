@@ -21,6 +21,8 @@ def main(argv=None):
 		help='The path of the test module to generate.')
 	parser.add_argument('-p', '--test-prefix', default='test_',
 		help='The prefix for test files.')
+	parser.add_argument('-t', '--tab-width', type=int,
+		help='The width of a tab in spaces (default None = actual tabs).')
 
 	if argv is None:
 		argv = sys.argv
@@ -33,6 +35,10 @@ def main(argv=None):
 			unitTest = Generator.generateUnitTest(root, fileName)
 			if unitTest is None:
 				continue
+
+			#Replace tabs
+			if arguments.tab_width is not None:
+				unitTest = unitTest.replace('\t', ' ' * arguments.tab_width)
 
 			#Write it
 			outFile = '%s%s' % (arguments.test_prefix, fileName)
