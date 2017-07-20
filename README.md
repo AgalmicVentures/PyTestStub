@@ -1,10 +1,11 @@
 
 # PyTestStub
-PyTestStub is a Python unit test stub generator. It takes a module name, and a
-path for the test module to generate, then generates test stubs for each class
-and function.
+PyTestStub is a Python unit test stub generator. It takes a module name and
+generates test stubs for each class and function in the module.
 
-## `GenerateUnitTests.py`
+## Scripts
+
+### `GenerateUnitTests.py`
 Generates the actual unit tests:
 
 	> ~/path/to/PyTestStub/GenerateUnitTests.py -h
@@ -22,14 +23,14 @@ Generates the actual unit tests:
 	  -p TEST_PREFIX, --test-prefix TEST_PREFIX
 	                        The prefix for test files.
 
-	> ~/path/to/PyTestStub/GenerateUnitTests.py -m Test2 NanoPcap
+	> ~/path/to/PyTestStub/GenerateUnitTests.py -m Test NanoPcap
 	No classes or functions in NanoPcap/__init__.py
-	Writing test to Test2/NanoPcap/test_Format.py
-	Writing test to Test2/NanoPcap/test_Listener.py
-	Writing test to Test2/NanoPcap/test_Parser.py
+	Writing test to Test/NanoPcap/test_Format.py
+	Writing test to Test/NanoPcap/test_Listener.py
+	Writing test to Test/NanoPcap/test_Parser.py
 	No classes or functions in NanoPcap/Tools/__init__.py
-	Writing test to Test2/NanoPcap/Tools/test_PcapDump.py
+	Writing test to TestNanoPcap/Tools/test_PcapDump.py
 	Writing test to Test2/NanoPcap/Tools/test_PcapSummary.py
 	No classes or functions in NanoPcap/Utility/__init__.py
-	Writing test to Test2/NanoPcap/Utility/test_Statistics.py
-	Writing test to Test2/NanoPcap/Utility/test_Units.py
+	Writing test to Test/NanoPcap/Utility/test_Statistics.py
+	Writing test to Test/NanoPcap/Utility/test_Units.py
