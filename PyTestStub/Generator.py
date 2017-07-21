@@ -86,7 +86,7 @@ def generateUnitTest(root, fileName):
 			))
 			#TODO: generate instance construction stub
 
-	unitTestsStr = '\n\n'.join(unitsTests)
+	unitTestsStr = '\n\n'.join(unitTest for unitTest in unitsTests if unitTest != '')
 	unitTest = Templates.unitTestBase % unitTestsStr
 
 	return unitTest
