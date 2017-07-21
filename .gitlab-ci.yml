@@ -14,9 +14,16 @@ stages:
 #  only:
 #    - master
 
-smoke_test_job:
+smoke_test_help_job:
   stage: test
   script:
     - ./GenerateUnitTests.py -h
+  only:
+    - master
+
+smoke_test_self_job:
+  stage: test
+  script:
+    - ./GenerateUnitTests.py -m test2 PyTestStub
   only:
     - master
