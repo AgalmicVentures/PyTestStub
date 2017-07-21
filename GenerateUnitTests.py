@@ -74,7 +74,7 @@ def main(argv=None):
 					testInitFile.write('')
 
 			outPath = os.path.join(outFolder, outFile)
-			if not os.path.exists(outPath) or arguments.force:
+			if arguments.force or not os.path.exists(outPath) or os.stat(outPath).st_size == 0:
 				print('[%s] Writing...' % outPath)
 				with open(outPath, 'w') as outFile:
 					outFile.write(unitTest)
