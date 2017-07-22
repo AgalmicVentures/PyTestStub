@@ -13,16 +13,17 @@ def generateUnitTest(root, fileName):
 	:param fileName: str
 	:return: str or None
 	"""
+	#Skip non-Python files
 	if not fileName.endswith('.py'):
 		return None
 
-	path = os.path.join(root, fileName)
-
 	#Skip symlinks
+	path = os.path.join(root, fileName)
 	if os.path.islink(path):
 		print('Symlink: %s' % path)
 		return None
 
+	#Get the parts of the filename
 	pathParts = os.path.split(path)
 	fileName = pathParts[-1]
 	module, _ = os.path.splitext(fileName)
@@ -86,6 +87,7 @@ def generateUnitTest(root, fileName):
 			))
 			#TODO: generate instance construction stub
 
+	#Assemble the unit tests in the template
 	unitTestsStr = '\n\n'.join(unitTest for unitTest in unitsTests if unitTest != '')
 	unitTest = Templates.unitTestBase % unitTestsStr
 
