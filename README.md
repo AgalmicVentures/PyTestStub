@@ -14,11 +14,12 @@ implemented by anyone (e.g. delegated to junior team members).
 ## Scripts
 
 ### `GenerateUnitTests.py`
-Generates the actual unit tests.
+Generates the actual unit tests, with options like a header file to prepend as
+a license:
 
 	> ~/path/to/PyTestStub/GenerateUnitTests.py -h
-	usage: GenerateUnitTests.py [-h] [-m TEST_MODULE] [-p TEST_PREFIX]
-	                            [-t TAB_WIDTH]
+	usage: GenerateUnitTests.py [-h] [-F FOOTER] [-H HEADER] [-f] [-m TEST_MODULE]
+	                            [-p TEST_PREFIX] [-t TAB_WIDTH]
 	                            module
 
 	Python Unit Test Stub Generator
@@ -28,12 +29,20 @@ Generates the actual unit tests.
 
 	optional arguments:
 	  -h, --help            show this help message and exit
+	  -F FOOTER, --footer FOOTER
+	                        File to use as a footer.
+	  -H HEADER, --header HEADER
+	                        File to use as a header.
+	  -f, --force           Force files to be generated, even if they already
+	                        exist.
 	  -m TEST_MODULE, --test-module TEST_MODULE
 	                        The path of the test module to generate.
 	  -p TEST_PREFIX, --test-prefix TEST_PREFIX
 	                        The prefix for test files.
 	  -t TAB_WIDTH, --tab-width TAB_WIDTH
 	                        The width of a tab in spaces (default actual tabs).
+
+Output is simple and human readable:
 
 	> ~/path/to/PyTestStub/GenerateUnitTests.py PyTestStub
 	No classes or functions in PyTestStub/__init__.py
