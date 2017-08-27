@@ -45,6 +45,8 @@ def main(argv=None):
 
 	parser.add_argument('-f', '--force', action='store_true',
 		help='Force files to be generated, even if they already exist.')
+	parser.add_argument('-i', '--internal', action='store_true',
+		help='Include internal classes and methods starting with a _.')
 	parser.add_argument('-m', '--test-module', default='test',
 		help='The path of the test module to generate.')
 	parser.add_argument('-p', '--test-prefix', default='test_',
@@ -70,7 +72,7 @@ def main(argv=None):
 	for root, directoryNames, fileNames in os.walk(arguments.module):
 		for fileName in fileNames:
 			#Skip ignored files
-			unitTest = Generator.generateUnitTest(root, fileName)
+			unitTest = Generator.generateUnitTest(root, fileName, arguments.internal)
 			if unitTest is None:
 				continue
 

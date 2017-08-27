@@ -25,7 +25,7 @@ import os
 
 from PyTestStub import Templates
 
-def generateUnitTest(root, fileName):
+def generateUnitTest(root, fileName, inlcudeInternal=False):
 	"""
 	Generates a unit test, given a root directory and a subpath to a file.
 
@@ -71,15 +71,17 @@ def generateUnitTest(root, fileName):
 	for node in tree.body:
 		nodeType = type(node)
 		if nodeType is ast.ClassDef:
-			classes.append(node.name)
+			if not node.name.startswith('_') or includeInternal:
+				classes.append(node.name)
 
 			#Track methods
 			for child in node.body:
-				if type(child) is ast.FunctionDef:
+				if type(child) is ast.FunctionDef and not child.name.startswith('_') or includeInternal:
 					classToMethods[node.name].append(child.name)
 
 		elif nodeType is ast.FunctionDef:
-			functions.append(node.name)
+			if not node.name.startswith('_') or includeInternal:
+				functions.append(node.name)
 
 	if len(functions) == 0 and len(classes) == 0:
 		print('No classes or functions in %s' % path)
