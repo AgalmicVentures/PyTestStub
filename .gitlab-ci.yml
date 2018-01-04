@@ -22,7 +22,7 @@
 before_script:
   - python3 -m venv myenv
   - source myenv/bin/activate
-  - #TODO: activate once there is something pip3 install -r requirements.txt
+  #TODO: activate once there is something pip3 install -r requirements.txt
 
 stages:
   - test
