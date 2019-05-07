@@ -1,15 +1,15 @@
 
 # PyTestStub
-PyTestStub is a Python unit test stub generator. It takes a module name and
-walks each file in the module. If it encounters a file without a
-corresponding test file, it will generate one with stub tests for each function
+PyTestStub reads your Python code to generate unit test stubs. Given a module name,
+it walks each file in the module. If it encounters a file without a
+corresponding test file, it generates one with test stubs for each function
 and class method in the file.
 
 Besides reducing time spent on boilerplate, this approach ensures complete
 coverage when creating new tests, so developers can focus on the actual tests.
-Rework after generation is limited to removing unneeded stubs and duplicating
-those which require multiple tests (copy+paste), after which the tests can be
-implemented by anyone (e.g. delegated to junior team members).
+After generation, rework is limited to removing unneeded stubs and duplicating
+those which require multiple tests (copy+paste). The resulting skeleton is
+sufficiently complete to delegate the test implementation to another developer.
 
 ## Scripts
 
@@ -17,7 +17,7 @@ implemented by anyone (e.g. delegated to junior team members).
 Generates the actual unit tests, with options like a header file to prepend as
 a license:
 
-	> ~/path/to/PyTestStub/GenerateUnitTests.py -h
+	> PyTestStub/GenerateUnitTests.py -h
 	usage: GenerateUnitTests.py [-h] [-F FOOTER] [-H HEADER] [-f] [-m TEST_MODULE]
 	                            [-p TEST_PREFIX] [-t TAB_WIDTH]
 	                            module
@@ -44,7 +44,7 @@ a license:
 
 Output is simple and human readable:
 
-	> ~/path/to/PyTestStub/GenerateUnitTests.py PyTestStub
+	> PyTestStub/GenerateUnitTests.py PyTestStub
 	No classes or functions in PyTestStub/__init__.py
 	Writing test to test/test_Generator.py
 	No classes or functions in PyTestStub/Templates.py

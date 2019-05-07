@@ -24,6 +24,12 @@ import argparse
 import os
 import sys
 
+import inspect
+_currentFile = os.path.abspath(inspect.getfile(inspect.currentframe()))
+_currentDir = os.path.dirname(_currentFile)
+_parentDir = os.path.dirname(_currentDir)
+sys.path.insert(0, _parentDir)
+
 from PyTestStub import Generator
 
 def main(argv=None):
