@@ -11,13 +11,18 @@ After generation, rework is limited to removing unneeded stubs and duplicating
 those which require multiple tests (copy+paste). The resulting skeleton is
 sufficiently complete to delegate the test implementation to another developer.
 
+## Installation
+To install, simply use `pip`:
+
+	> python3 -m pip install PyTestStub
+
 ## Scripts
 
 ### `GenerateUnitTests.py`
 Generates the actual unit tests, with options like a header file to prepend as
 a license:
 
-	> PyTestStub/GenerateUnitTests.py -h
+	> python3 -m PyTestStub.GenerateUnitTests -h
 	usage: GenerateUnitTests.py [-h] [-F FOOTER] [-H HEADER] [-f] [-m TEST_MODULE]
 	                            [-p TEST_PREFIX] [-t TAB_WIDTH]
 	                            module
@@ -44,7 +49,7 @@ a license:
 
 Output is simple and human readable:
 
-	> PyTestStub/GenerateUnitTests.py PyTestStub
+	> python3 -m PyTestStub.GenerateUnitTests PyTestStub
 	No classes or functions in PyTestStub/__init__.py
 	Writing test to test/test_Generator.py
 	No classes or functions in PyTestStub/Templates.py
