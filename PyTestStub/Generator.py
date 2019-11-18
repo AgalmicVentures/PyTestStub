@@ -25,7 +25,7 @@ import os
 
 from PyTestStub import Templates
 
-def generateUnitTest(root, fileName, inlcudeInternal=False):
+def generateUnitTest(root, fileName, includeInternal=False):
 	"""
 	Generates a unit test, given a root directory and a subpath to a file.
 
