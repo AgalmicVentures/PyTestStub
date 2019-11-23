@@ -25,7 +25,7 @@ import os
 
 from PyTestStub import Templates
 
-def generateUnitTest(root, fileName, inlcudeInternal=False):
+def generateUnitTest(root, fileName, includeInternal=False):
 	"""
 	Generates a unit test, given a root directory and a subpath to a file.
 
@@ -52,8 +52,8 @@ def generateUnitTest(root, fileName, inlcudeInternal=False):
 	try:
 		with open(path) as f:
 			text = f.read()
-	except UnicodeDecodeError as e:
-		print('Unicode decode error for %s: %s' % (path, e))
+	except UnicodeDecodeError as ude:
+		print('Unicode decode error for %s: %s' % (path, ude))
 		return None
 
 	#Parse it

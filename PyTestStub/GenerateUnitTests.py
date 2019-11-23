@@ -75,7 +75,7 @@ def main(argv=None):
 			footer = footerFile.read()
 
 	#Walk the directory finding Python files
-	for root, directoryNames, fileNames in os.walk(arguments.module):
+	for root, _, fileNames in os.walk(arguments.module):
 		for fileName in fileNames:
 			#Skip ignored files
 			unitTest = Generator.generateUnitTest(root, fileName, arguments.internal)
