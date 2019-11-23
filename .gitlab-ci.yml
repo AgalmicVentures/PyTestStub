@@ -43,13 +43,13 @@ stages:
 smoke_test_help_job:
   stage: test
   script:
-    - ./GenerateUnitTests.py -h
+    - PyTestStub/GenerateUnitTests.py -h
   only:
     - master
 
 smoke_test_self_job:
   stage: test
   script:
-    - ./GenerateUnitTests.py -m test2 PyTestStub
+    - PyTestStub/GenerateUnitTests.py -m test2 PyTestStub
   only:
     - master
