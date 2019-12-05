@@ -26,7 +26,7 @@ with open('README.md', 'r') as readmeFile:
 
 setuptools.setup(
     name='PyTestStub',
-    version='0.0.2',
+    version='0.0.3',
     author='Ian Hutchinson',
     author_email='ihutchinson@agalmicventures.com',
     description='Reads your Python code to generate unit test stubs',
