@@ -32,6 +32,7 @@ before_script:
 
 stages:
   - test
+  - deploy
 
 #unit_test_job:
 #  stage: test
@@ -58,5 +59,15 @@ smoke_test_data_job:
   stage: test
   script:
     - PyTestStub/GenerateUnitTests.py -m test3 TestData
+  only:
+    - master
+
+upload_to_pypi_job:
+  stage: deploy
+  script:
+    - python3 -m pip install --upgrade setuptools wheel twine
+    - python3 setup.py sdist bdist_wheel
+    - python3 -m twine upload dist/*
+  when: manual
   only:
     - master
