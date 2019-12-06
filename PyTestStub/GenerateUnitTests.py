@@ -48,6 +48,8 @@ def main(argv=None):
 		help='File to use as a footer.')
 	parser.add_argument('-H', '--header',
 		help='File to use as a header.')
+	parser.add_argument('-X', '--exclude', action='append', default=[],
+		help='Add a child directory name to exclude.')
 
 	parser.add_argument('-f', '--force', action='store_true',
 		help='Force files to be generated, even if they already exist.')
@@ -77,7 +79,12 @@ def main(argv=None):
 	#Walk the directory finding Python files
 	for root, _, fileNames in os.walk(arguments.module):
 		for fileName in fileNames:
-			#Skip ignored files
+			#Skip ignored directories
+			_, childDirectory = os.path.split(root)
+			if childDirectory in arguments.exclude:
+				continue
+
+			#Generate unit test, skipping ignored files
 			unitTest = Generator.generateUnitTest(root, fileName, arguments.internal)
 			if unitTest is None:
 				continue

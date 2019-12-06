@@ -23,8 +23,9 @@ Generates the actual unit tests, with options like a header file to prepend as
 a license:
 
 	> python3 -m PyTestStub.GenerateUnitTests -h
-	usage: GenerateUnitTests.py [-h] [-F FOOTER] [-H HEADER] [-f] [-m TEST_MODULE]
-	                            [-p TEST_PREFIX] [-t TAB_WIDTH]
+	usage: GenerateUnitTests.py [-h] [-F FOOTER] [-H HEADER] [-X EXCLUDE] [-f]
+	                            [-i] [-m TEST_MODULE] [-p TEST_PREFIX]
+	                            [-t TAB_WIDTH]
 	                            module
 
 	Python Unit Test Stub Generator
@@ -38,8 +39,12 @@ a license:
 	                        File to use as a footer.
 	  -H HEADER, --header HEADER
 	                        File to use as a header.
+	  -X EXCLUDE, --exclude EXCLUDE
+	                        Add a child directory name to exclude.
 	  -f, --force           Force files to be generated, even if they already
 	                        exist.
+	  -i, --internal        Include internal classes and methods starting with a
+	                        _.
 	  -m TEST_MODULE, --test-module TEST_MODULE
 	                        The path of the test module to generate.
 	  -p TEST_PREFIX, --test-prefix TEST_PREFIX
